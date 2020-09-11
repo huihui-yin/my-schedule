@@ -1,12 +1,18 @@
 <template>
-    <div id="app">
+    <div id="app"  onresize="setRem()">
       <router-view/>
     </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  methods: {
+    // setRem () {
+    //   // 设置rem的值
+    //   document.documentElement.style.fontSize = document.documentElement.clientWidth / 100 + 'px';
+    // }
+  }
 }
 </script>
 
@@ -17,7 +23,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #333;
   background: url("assets/img/bg1.jpg") no-repeat;
   background-size: 100%100%;
 }
@@ -28,6 +34,8 @@ export default {
 body,html,#app {
   width: 100%;
   height: 100%;
+  /*font-size: 16px;*/
+  font-size: 1vw;
   /*overflow: hidden;*/
   /*min-height: 615px;*/
   /*min-width: 950px;*/
