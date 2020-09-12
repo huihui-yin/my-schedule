@@ -9,7 +9,7 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/login',
       name: 'login',
       component: login
     },
@@ -21,5 +21,13 @@ const router = new Router({
   ]
 })
 /* 路由拦截 */
-// router
+router.beforeEach((to, from, next) => {
+  if (to.path === '/login') return next()
+  const username = localStorage.getItem('username')
+  if (username !== '小明') {
+    console.log('username', username)
+    return next('/login')
+  }
+  next()
+})
 export default router

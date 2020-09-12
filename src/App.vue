@@ -24,7 +24,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #333;
-  background: url("assets/img/bg1.jpg") no-repeat;
+  background: url("assets/img/bg5.jpg") no-repeat;
+  /*background-color: #f7f6f4;*/
   background-size: 100%100%;
 }
 *{
@@ -34,11 +35,9 @@ export default {
 body,html,#app {
   width: 100%;
   height: 100%;
-  /*font-size: 16px;*/
-  font-size: 1vw;
-  /*overflow: hidden;*/
-  /*min-height: 615px;*/
-  /*min-width: 950px;*/
+  /*font-size: 1vw;*/
+  font-size: 16px;
+  overflow: auto;
 }
 /*设置滚动条*/
 ::-webkit-scrollbar {
