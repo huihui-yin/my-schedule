@@ -45,7 +45,6 @@ export default {
   },
   methods: {
     login () {
-      console.log('登录函数')
       this.$refs.loginRef.validate((valid) => {
         if (!valid) {
           return false
@@ -53,7 +52,10 @@ export default {
           if (this.loginForm.username === '小明' && this.loginForm.password === '123456') {
             localStorage['username'] = this.loginForm.username
             localStorage['password'] = this.loginForm.password
+            this.$message.success('登录成功')
             this.$router.push({path: '/main'})
+          } else {
+            this.$message.error('用户明或密码错误')
           }
         }
       })

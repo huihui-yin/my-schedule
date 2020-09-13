@@ -41,19 +41,7 @@ body,html,#app {
 }
 /*设置滚动条*/
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-  background-color: #eeeeee;
-}
-::-webkit-scrollbar-track {
-  border-radius: 3px;
-  background: rgba(0,0,0,0.06);
-  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.08);
-}
-/* 滚动条滑块 */
-::-webkit-scrollbar-thumb {
-  border-radius: 3px;
-  background: rgba(0,0,0,0.12);
-  -webkit-box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+  width: 0;
+  height: 0;
 }
 </style>
