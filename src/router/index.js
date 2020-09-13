@@ -9,7 +9,7 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
-      path: '/login',
+      path: '/',
       name: 'login',
       component: login
     },
@@ -22,11 +22,11 @@ const router = new Router({
 })
 /* 路由拦截 */
 router.beforeEach((to, from, next) => {
-  if (to.path === '/login') return next()
+  if (to.path === '/') return next()
   const username = localStorage.getItem('username')
   if (username !== '小明') {
     console.log('username', username)
-    return next('/login')
+    return next('/')
   }
   next()
 })

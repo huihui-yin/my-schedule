@@ -1,7 +1,10 @@
 # my-schedule
 
 > schedule project
+## 测试账号
+用户名：小明
 
+密码： 123456
 ## Build Setup
 
 ``` bash

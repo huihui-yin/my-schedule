@@ -8,6 +8,7 @@
             <input class="a" id="in"  type="text" placeholder="请输入课程名"
                    @input="findClass"
                    v-model="courseSearch"
+                   @blur="outSearch"
                    @focus="findClass">
             <i @click="findClass" class="el-icon-search"></i>
             <div class="after"></div>
@@ -90,6 +91,7 @@ export default {
       courseSearch: '', // 输入的课程
       searchResult: [], // 搜索结果内容
       result: false, // 是否有搜索内容
+      timer: null, // 搜索输入定时器
       classAllWidth: '', // 课程表内容的宽度
       week: ['一', '二', '三', '四', '五', '六', '日'],
       time: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
@@ -128,64 +130,63 @@ export default {
     },
     // input框获取焦点
     getFocus () {
-      console.log('input框获取焦点')
+      // console.log('input框获取焦点')
       var input = document.getElementById('in')
       input.focus() // 目的是点击form之内但input之外也不会失去焦点
     },
     // 搜索课程
     findClass () {
-      // console.log('值改变', this.courseSearch)
       var input = document.getElementById('in')
       input.focus() // 目的是点击搜索图标input也不会失去焦点
-      var searchValue = this.courseSearch
-      this.searchResult = []
-      this.result = false
-      var res = []
-      this.allCourse.forEach((item, index) => {
-        if (item.name.indexOf(searchValue) !== -1 && searchValue !== '') {
-          // 有匹配结果并且搜索框输入的数据不为空
-          // console.log('1')
-          this.result = true
-          // item.name.slice(0, 4) + '...'
-          // if (item.name.length > 6) {
-          //   item.name = item.name.slice(0, 6) + '...'
-          // }
-          res.push(item)
-          // 将input的底部boder-radius去掉
+      clearTimeout(this.timer)
+      this.timer = setTimeout(() => { // 节流
+        var searchValue = this.courseSearch
+        this.searchResult = []
+        this.result = false
+        var res = []
+        this.allCourse.forEach((item, index) => {
+          if (item.name.indexOf(searchValue) !== -1 && searchValue !== '') {
+            // 有匹配结果并且搜索框输入的数据不为空
+            this.result = true
+            res.push(item)
+            // 将input的底部boder-radius去掉
+            input.classList.add('b')
+            input.classList.remove('a')
+          } else if (searchValue === '') {
+            // 搜索框输入数据为空
+            input.classList.add('a')
+            input.classList.remove('b')
+          }
+        })
+        if (this.result === false && searchValue !== '') {
+          this.result = false
+          res = ['** 无结果 **']
           input.classList.add('b')
           input.classList.remove('a')
-        } else if (searchValue === '') {
-          // 搜索框输入数据为空
-          input.classList.add('a')
-          input.classList.remove('b')
         }
-      })
-      if (this.result === false && searchValue !== '') {
-        this.result = false
-        res = ['** 无结果 **']
-        input.classList.add('b')
-        input.classList.remove('a')
-      }
-      this.searchResult = res
-      // console.log('this.searchResult: ', this.searchResult)
+        this.searchResult = res
+      }, 500)
     },
     // 取消搜索
     outSearch () {
-      this.searchResult = []
-      var input = document.getElementById('in')
-      input.classList.add('a')
-      input.classList.remove('b')
+      setTimeout(() => {
+        this.searchResult = []
+        var input = document.getElementById('in')
+        input.classList.add('a')
+        input.classList.remove('b')
+        // console.log('搜索结果消失')
+      }, 500)
     },
     // 点击搜索的结果
     searchDetail (index) {
-      // var input = document.getElementById('in')
-      // input.focus() // 目的是点击搜索图标input也不会失去焦点
-      console.log('点击搜索的结果')
+      // console.log('点击搜索的结果')
       this.classContent = this.searchResult[index]
       this.classDetail = true
     },
     // 关闭弹窗
     cancel () {
+      var input = document.getElementById('in')
+      input.blur()
       this.classDetail = false
     },
     // 获取屏幕宽高
@@ -356,7 +357,6 @@ export default {
     }
   }
   @media (max-width: 500px) {
-    /*.scheduleMain{padding-top: 30px;height: calc(100% - 30px);}*/
     .searchContent{
       height:30px;
       margin: 10px;
